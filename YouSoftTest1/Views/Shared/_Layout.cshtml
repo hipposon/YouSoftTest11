@@ -1,0 +1,82 @@
+﻿@using YouSoftTest1.Models
+@model IndexViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>YouSoftTest1</title>
+
+    <style>
+        .header {
+            text-align: center;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            background-color: pink;
+            color: white;
+        }
+
+        .tbi {
+            margin-top: 50px;
+        }
+
+        .pagin {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid header">
+        <h1>YouSoftTest1</h1>
+    </div>
+
+    <div class="container-fluid tbi">
+        <table class="table table-bordered">
+
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Second</th>
+                    <th scope="col">Third</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                @foreach (Table t in Model.Tables)
+                {
+                    <tr><td>@t.Id</td><td>@t.ColumnOne</td><td>@t.ColumnTwo</td><td>@t.ColumnThree</td></tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container-fluid pagin">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a href='@Url.Action("Index", "Home",new { page = 1})' class="page-link"><<</a></li>
+                @if (Model.PageViewModel.HasPreviousPage)
+                {
+                    <li class="page-item"><a href='@Url.Action("Index", "Home",new { page = Model.PageViewModel.PageNumber - 1})' class="page-link"><</a></li>
+                }
+                <li class="page-item"><a href='@Url.Action("Index", "Home",new { page = Model.PageViewModel.PageNumber})' class="page-link">@Model.PageViewModel.PageNumber</a></li>
+                @if (Model.PageViewModel.HasNextPage)
+                {
+                    <li class="page-item"><a href='@Url.Action("Index", "Home",new { page = Model.PageViewModel.PageNumber + 1})' class="page-link">></a></li>
+                }
+                <li class="page-item"><a href='@Url.Action("Index", "Home",new { page = 0})' class="page-link">>></a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+    @RenderBody()
+</body>
+</html>
+
